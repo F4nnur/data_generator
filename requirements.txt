@@ -1,0 +1,14 @@
+certifi==2024.2.2
+charset-normalizer==3.3.2
+docker==7.0.0
+Faker==23.2.1
+idna==3.6
+multidict==6.0.5
+packaging==23.2
+pulsar-client==3.4.0
+pycountry==23.12.11
+python-dateutil==2.8.2
+requests==2.31.0
+six==1.16.0
+urllib3==2.2.1
+wonderwords==2.2.0
