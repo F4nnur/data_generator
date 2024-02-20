@@ -6,6 +6,7 @@ from wonderwords import RandomWord
 from connectors import product_producer, client
 from data_schemes.product_data_scheme import ProductData
 from helpers import add_random_time_delta, upload_to_hdfs, copy_to2
+from services.data2psql import insert_into_db
 
 try:
     count = 0
@@ -36,6 +37,17 @@ try:
                               type=product_type,
                               time_created=time_created)
         product_producer.send(message)
+        data = {
+            'product_id': product_id,
+            'name': name,
+            "price": price,
+            'rating': rating,
+            "views_count": views_count,
+            'type': product_type,
+            'time_created': time_created
+        }
+
+        insert_into_db('products', data)
 
         # Сохранение сообщений в файл
         msg_product = {"product_id": product_id,
@@ -46,13 +58,13 @@ try:
                        "type": product_type,
                        "time_created": time_created}
         str_msg = json.dumps(msg_product)
-        if product_id % 10 == 0 and product_id > 0:
-            copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers/products{count}.csv",
-                     f"datanode1:/products{count}.csv")
-            upload_to_hdfs(f"products{count}.csv", f"products{count}.csv", 'datanode1')
-            count = count + 1
-        with open(f"products{count}.csv", 'a') as csvfile:
-            csvfile.write(str_msg)
+        # if product_id % 10 == 0 and product_id > 0:
+        #     copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers/products{count}.csv",
+        #              f"datanode1:/products{count}.csv")
+        #     upload_to_hdfs(f"products{count}.csv", f"products{count}.csv", 'datanode1')
+        #     count = count + 1
+        # with open(f"products{count}.csv", 'a') as csvfile:
+        #     csvfile.write(str_msg)
         print(msg_product)
         product_id += 1
         if product_id > 600:

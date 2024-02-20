@@ -48,7 +48,7 @@ try:
                    "time_created": time_created}
             str_msg = json.dumps(msg)
             if cart_id % 5000 == 0 and cart_id > 0:
-                copy_to2(f"C:/Users/julma/PycharmProjects/pythonPulsar/producers/carts{count}.csv",
+                copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers_data/carts{count}.csv",
                          f"datanode1:/carts{count}.csv")
                 upload_to_hdfs(f"carts{count}.csv", f"carts{count}.csv", 'datanode1')
                 count = count + 1
@@ -79,7 +79,7 @@ try:
                          "status": status_order}
             str_msg = json.dumps(msg_order)
             if order_id % 5000 == 0 and order_id > 0:
-                copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers/orders{count}.csv",
+                copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers_data/orders{count}.csv",
                          f"datanode1:/orders{count}.csv")
                 upload_to_hdfs(f"orders{count}.csv", f"orders{count}.csv", 'datanode1')
                 count = count + 1
@@ -103,7 +103,7 @@ try:
                 action_id = action_id + 1
                 str_msg = json.dumps(msg_action)
                 if action_id % 5000 == 0 and action_id > 0:
-                    copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers/actions{count}.csv",
+                    copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers_data/actions{count}.csv",
                              f"datanode1:/actions{count}.csv")
                     upload_to_hdfs(f"actions{count}.csv", f"actions{count}.csv", 'datanode1')
                     count = count + 1
@@ -127,7 +127,7 @@ try:
                 action_id = action_id + 1
                 str_msg = json.dumps(msg_action)
                 if action_id % 5000 == 0 and action_id > 0:
-                    copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers/actions{count}.csv",
+                    copy_to2(f"/Users/fannurahmetov/projects/pythonPulsar/producers_data/actions{count}.csv",
                              f"datanode1:/actions{count}.csv")
                     upload_to_hdfs(f"actions{count}.csv", f"actions{count}.csv", 'datanode1')
                     count = count + 1
