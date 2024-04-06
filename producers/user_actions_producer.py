@@ -3,7 +3,7 @@ import datetime
 from faker import Faker
 from wonderwords import RandomWord
 from connectors import client, user_actions_producer
-from services.data2psql import insert_into_db
+from services.data2clickhouse import insert_into_clickhouse
 
 try:
     fake = Faker()
@@ -16,7 +16,7 @@ try:
         gender = fake.random_element(elements=(1, 0))
         user_id = fake.random_int(min=1, max=10000)
         age = fake.random_int(min=10, max=50)
-        post_id = fake.random_int(min=10, max=10000)
+        product_id = fake.random_int(min=10, max=10000)
         action = fake.random_element(elements=("view", "like"))
         os = fake.random_element(elements=("Android", "IOS"))
         source = fake.random_element(elements=("organic", "ads"))
@@ -25,7 +25,7 @@ try:
 
         data = {
             "user_id": user_id,
-            "post_id": post_id,
+            "product_id": product_id,
             "action": action,
             "time": new_date,
             "gender": gender,
@@ -36,9 +36,9 @@ try:
             "source": source,
             "exp_group": exp_group
         }
-        insert_into_db('user_actions_2', data)
+        insert_into_clickhouse('diploma.user_actions', data)
         print(data)
-        time.sleep(5)
+        time.sleep(2)
 except KeyboardInterrupt:
     print("Stop")
 
